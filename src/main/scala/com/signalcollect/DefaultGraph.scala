@@ -67,6 +67,7 @@ import com.signalcollect.interfaces.EdgeAddedToNonExistentVertexHandlerFactory
 import com.signalcollect.interfaces.ExistingVertexHandlerFactory
 import scala.reflect.runtime.universe._
 import com.signalcollect.configuration.Akka
+import lacasa.Box
 
 /**
  * Creator in separate class to prevent excessive closure-capture of the DefaultGraph class (Error[java.io.NotSerializableException DefaultGraph])
@@ -757,6 +758,7 @@ class DefaultGraph[Id: ClassTag: TypeTag, Signal: ClassTag: TypeTag](
         parallelBootstrapNodeProxies.foreach(_.shutdown)
       } catch {
         case t: Throwable =>
+          Box.uncheckedCatchControl
       }
       try {
         Thread.sleep(20)
@@ -765,6 +767,7 @@ class DefaultGraph[Id: ClassTag: TypeTag, Signal: ClassTag: TypeTag](
         }
       } catch {
         case t: Throwable =>
+          Box.uncheckedCatchControl
       }
     } else {
       // If the system is preserved, just cleanup the actors.

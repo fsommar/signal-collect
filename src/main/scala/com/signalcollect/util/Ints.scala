@@ -25,6 +25,7 @@ import java.util.Arrays
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.Buffer
 import com.signalcollect.util.Ints._
+import lacasa.Box
 
 /**
  * Utility for encoding/decoding unsigned variable length integers.
@@ -137,7 +138,9 @@ object Ints {
       }
       decodedInt
     } catch {
-      case t: Throwable => -1
+      case t: Throwable =>
+        Box.uncheckedCatchControl
+        -1
     }
   }
 
