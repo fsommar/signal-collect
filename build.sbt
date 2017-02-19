@@ -11,12 +11,19 @@ scalacOptions ++= Seq(
   "-encoding", "UTF-8",
   "-feature",
   "-target:jvm-1.8",
-  "-unchecked"
+  "-unchecked",
+  "-P:lacasa:enable"
 )
+
+autoCompilerPlugins := true
+
+addCompilerPlugin("io.github.phaller" % "lacasa-plugin_2.11.8" % "0.1.0-SNAPSHOT")
 
 libraryDependencies ++= Seq(
   "org.scala-lang" %  "scala-library" % "2.11.7",
   "com.typesafe.akka" %  "akka-cluster_2.11" % "2.4.1",
+  //"io.github.phaller" % "lacasa-core_2.11.8" % "0.1.0-SNAPSHOT",
+  "io.github.phaller" % "lacasa-akka_2.11.8" % "0.1.0-SNAPSHOT",
   "com.github.romix.akka" %  "akka-kryo-serialization_2.11" % "0.4.0",
   "net.ceedubs" %  "ficus_2.11" % "1.1.2",
   "org.json4s" %  "json4s-native_2.11" % "3.2.11",

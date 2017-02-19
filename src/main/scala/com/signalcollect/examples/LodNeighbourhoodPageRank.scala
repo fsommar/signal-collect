@@ -26,6 +26,7 @@ import com.signalcollect.TopKFinder
 import sun.net.www.http.HttpClient
 import java.net.URL
 import java.net.UnknownHostException
+import lacasa.Box
 
 class LodNeighbourhoodPageRank(id: String, crawlDepth: Int = 3) extends PageRankVertex[String](id) {
 
@@ -51,7 +52,9 @@ class LodNeighbourhoodPageRank(id: String, crawlDepth: Int = 3) extends PageRank
           ge.addEdge(id, new PageRankEdge(dbpediaUrl))
         }
       } catch {
-        case t: Throwable => println("Problem: " + t.toString) // Parse error or not a LOD link, ignore.
+        case t: Throwable =>
+          Box.uncheckedCatchControl
+          println("Problem: " + t.toString) // Parse error or not a LOD link, ignore.
       }
     }
 

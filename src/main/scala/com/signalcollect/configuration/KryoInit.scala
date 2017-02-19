@@ -37,6 +37,7 @@ import scala.collection.immutable.{ TreeSet => ImmutableTreeSet }
 import akka.actor.ReceiveTimeout
 import akka.remote.transport.AkkaProtocolException
 import scala.reflect.ManifestFactory
+import lacasa.Box
 
 class KryoInit {
 
@@ -278,7 +279,9 @@ class KryoInit {
       register("akka.actor.RepointableActorRef")
       register("akka.actor.SystemGuardian$RegisterTerminationHook$")
     } catch {
-      case t: Throwable => t.printStackTrace
+      case t: Throwable =>
+        Box.uncheckedCatchControl
+        t.printStackTrace
     }
     //registerWithCompression(kryo, classOf[Array[Array[Int]]])
   }
